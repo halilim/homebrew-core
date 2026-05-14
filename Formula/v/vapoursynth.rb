@@ -1,8 +1,8 @@
 class Vapoursynth < Formula
   desc "Video processing framework with simplicity in mind"
   homepage "https://www.vapoursynth.com"
-  url "https://github.com/vapoursynth/vapoursynth/archive/refs/tags/R73.tar.gz"
-  sha256 "1bb8ffe31348eaf46d8f541b138f0136d10edaef0c130c1e5a13aa4a4b057280"
+  url "https://github.com/vapoursynth/vapoursynth/archive/refs/tags/R76.tar.gz"
+  sha256 "8c51aedc26a5fa2b79b5716bfe1160ffa45c69035c728b7e8740785cf790454b"
   license "LGPL-2.1-or-later"
   compatibility_version 1
   head "https://github.com/vapoursynth/vapoursynth.git", branch: "master"
