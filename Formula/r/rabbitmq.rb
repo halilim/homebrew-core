@@ -4,6 +4,7 @@ class Rabbitmq < Formula
   url "https://github.com/rabbitmq/rabbitmq-server/releases/download/v4.3.1/rabbitmq-server-generic-unix-4.3.1.tar.xz"
   sha256 "fc65179276a5e929258caab98d5ad1f1b10b51ccc56a128c50a00ed06e518103"
   license "MPL-2.0"
+  revision 1
 
   livecheck do
     url :stable
@@ -15,7 +16,7 @@ class Rabbitmq < Formula
     sha256 cellar: :any_skip_relocation, all: "877c4add337c22693e9830139a645ea20f5d8db024a12ee7d48c3f745dc1d944"
   end
 
-  depends_on "erlang"
+  depends_on "erlang@28"
 
   uses_from_macos "python" => :build
 
@@ -28,7 +29,7 @@ class Rabbitmq < Formula
     (var/"log/rabbitmq").mkpath
 
     # Correct SYS_PREFIX for things like rabbitmq-plugins
-    erlang = Formula["erlang"]
+    erlang = Formula["erlang@28"]
     inreplace sbin/"rabbitmq-defaults" do |s|
       s.gsub! "SYS_PREFIX=${RABBITMQ_HOME}", "SYS_PREFIX=#{HOMEBREW_PREFIX}"
       s.gsub! "CLEAN_BOOT_FILE=start_clean", "CLEAN_BOOT_FILE=#{erlang.opt_lib/"erlang/bin/start_clean"}"
@@ -50,6 +51,10 @@ class Rabbitmq < Formula
       enabled_plugins_path.write "[rabbitmq_management,rabbitmq_stomp,rabbitmq_amqp1_0," \
                                  "rabbitmq_mqtt,rabbitmq_stream]."
     end
+
+    # Help find versioned Erlang executables
+    # TODO: Remove with unversioned erlang
+    sbin.env_script_all_files(libexec, PATH: "#{erlang.opt_bin}:${PATH}")
   end
 
   def caveats
