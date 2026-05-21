@@ -4,6 +4,7 @@ class Electric < Formula
   url "https://github.com/electric-sql/electric/archive/refs/tags/@core/sync-service@1.6.6.tar.gz"
   sha256 "f40bb3277bfa68c727d8788410422f96bfa91bb22538fbb52aaf218a86d84be1"
   license "Apache-2.0"
+  revision 1
 
   livecheck do
     url :stable
@@ -21,7 +22,7 @@ class Electric < Formula
 
   depends_on "elixir" => :build
   depends_on "postgresql@18" => :test
-  depends_on "erlang"
+  depends_on "erlang@28"
   depends_on "openssl@3"
 
   uses_from_macos "ncurses"
