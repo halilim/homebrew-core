@@ -1,8 +1,8 @@
 class Cherrytree < Formula
   desc "Hierarchical note taking application featuring rich text and syntax highlighting"
   homepage "https://www.giuspen.com/cherrytree/"
-  url "https://www.giuspen.com/software/cherrytree_1.6.3.tar.xz"
-  sha256 "448cbdf190396f3c59896f4fc7c7fff98e4bb0f6080ea2b7d6e65d0d570e1e4f"
+  url "https://www.giuspen.com/software/cherrytree_1.7.0.tar.xz"
+  sha256 "5a015cb3af54a096a41795e42f9e41288f7189709046f81717f89d40a16f799b"
   license "GPL-3.0-or-later"
   head "https://github.com/giuspen/cherrytree.git", branch: "master"
 
@@ -57,6 +57,9 @@ class Cherrytree < Formula
   end
 
   def install
+    # Link libxml2 directly: cherrytree uses its C API but CMake only links libxml++
+    ENV.append "LDFLAGS", "-lxml2"
+
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
